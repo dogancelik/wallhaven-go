@@ -1,0 +1,11 @@
+{
+	"Linux": [
+		"gsettings set org.gnome.desktop.background picture-uri file://__WALL__"
+	],
+	"Windows": [
+		"WallpaperChanger.exe __WALL__"
+	],
+	"Mac": [
+		"osascript -e 'tell application \"Finder\" to set desktop picture to POSIX file __WALL__'"
+	]
+}
