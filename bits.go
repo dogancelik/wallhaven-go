@@ -1,4 +1,4 @@
-package search
+package wallhaven
 
 type Purity struct {
 	Sfw     bool

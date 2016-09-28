@@ -3,14 +3,14 @@ package main
 import (
 	"fmt"
 
-	"../search"
+	".."
 )
 
 func getChar(run rune) string {
 	return fmt.Sprintf("%c", run)
 }
 
-func parseCategories(opt *search.Options, cat string) {
+func parseCategories(opt *wallhaven.Options, cat string) {
 	for _, r := range cat {
 		switch getChar(r) {
 		case "g":
@@ -23,7 +23,7 @@ func parseCategories(opt *search.Options, cat string) {
 	}
 }
 
-func parsePurity(opt *search.Options, pur string) {
+func parsePurity(opt *wallhaven.Options, pur string) {
 	for _, r := range pur {
 		switch getChar(r) {
 		case "w":

@@ -1,4 +1,4 @@
-package search
+package wallhaven
 
 type Options struct {
 	Term        string

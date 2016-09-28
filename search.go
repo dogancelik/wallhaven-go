@@ -1,4 +1,4 @@
-package search
+package wallhaven
 
 import (
 	"net/url"

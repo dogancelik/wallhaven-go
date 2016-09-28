@@ -10,7 +10,7 @@ import (
 	"path"
 	"path/filepath"
 
-	"../search"
+	".."
 )
 
 func saveImage(imageUrl string) string {
@@ -40,7 +40,7 @@ func saveImage(imageUrl string) string {
 	return savePath
 }
 
-const version string = "v0.1.0"
+const version string = "v0.1.1"
 
 func printVersion() {
 	cmdName := filepath.Base(os.Args[0])
@@ -64,20 +64,21 @@ func main() {
 		os.Exit(0)
 	}
 
-	if (len(os.Args) == 1) || (len(os.Args) > 1 && os.Args[1] != "search") {
+	if len(os.Args) == 1 {
 		printVersion()
 		flag.Usage()
 		os.Exit(0)
 	}
 
-	opt := search.Options{}
+	opt := wallhaven.Options{}
 	opt.Term = *term
 	parseCategories(&opt, *category)
 	parsePurity(&opt, *purity)
-	opt.Resolutions = search.ParseResolutions(*res)
+	opt.Resolutions = wallhaven.ParseResolutions(*res)
 	opt.Sorting = *sort
 	opt.Page = *page
-	results, errSearch := search.Search(&opt)
+
+	results, errSearch := wallhaven.Search(&opt)
 
 	if errSearch != nil {
 		panic(errSearch)
