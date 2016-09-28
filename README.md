@@ -16,7 +16,7 @@ package main
 
 import (
 	"fmt"
-	wallhaven "bitbucket.org/dogancelik/wallhaven-go/search"
+	wallhaven "bitbucket.org/dogancelik/wallhaven-go"
 )
 
 func main() {
@@ -55,7 +55,7 @@ func main() {
 
 CLI is buggy because Go is buggy [[1]](https://github.com/golang/go/issues/14575), [[2]](https://github.com/golang/go/issues/16131), [[3]](https://github.com/golang/go/issues/17149).
 
-Note: If you are using Windows, you need to install WallpaperChanger from [here (github.com/philhansen/WallpaperChanger)](https://github.com/philhansen/WallpaperChanger/blob/master/WallpaperChanger.exe)
+Note: If you are using Windows, you need to install WallpaperChanger from [here (github.com/philhansen/WallpaperChanger)](https://github.com/philhansen/WallpaperChanger/blob/master/WallpaperChanger.exe) and put it beside `wallhaven.exe`
 
 * **Set first result as wallpaper:**  
 	```
