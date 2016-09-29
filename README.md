@@ -57,12 +57,54 @@ CLI is buggy because Go is buggy [[1]](https://github.com/golang/go/issues/14575
 
 Note: If you are using Windows, you need to install WallpaperChanger from [here (github.com/philhansen/WallpaperChanger)](https://github.com/philhansen/WallpaperChanger/blob/master/WallpaperChanger.exe) and put it beside `wallhaven.exe`
 
-* **Set first result as wallpaper:**  
-	```
-	cli "dog" --set
-	```
+```sh
+$ wallhaven
+wallhaven v0.1.1
+Usage of wallhaven:
+  -all           show all results as URLs (default false)
+  -c string     categories (available: [g][a][p]) (default "gap")
+  -p string     purity (available: [w][s][n]) (default "w")
+  -page int     page (default: 1) (default 1)
+  -r string     resolutions (example: 1920x1080+)
+  -s string     sorting (available: random, relevance, date_added, views) (default "random")
+  -set           set first result as wallpaper (default true)
+  -t string     search term
+  -v             show version number
+```
 
-* **Get search results as URLs:**  
-	```
-	cli "dog" --all
-	```
+### Set first result as wallpaper
+
+```
+wallhaven -t=dog --set
+```
+
+### Get search results as URLs
+
+```
+wallhaven -t=dog --all
+```
+
+### Change wallpaper change command
+
+Open `wallhaven.json` file and find your Operating System, edit the command of your OS and wallhaven will run it that.
+`Windows`, `Linux`, `Mac` are JSON array of string fields, so you can execute commands one by one.
+
+#### Example
+
+If we want to execute several commands on Windows, we can do something like this below:
+
+```json
+{
+  "Linux": [
+    "gsettings set org.gnome.desktop.background picture-uri file://__WALL__"
+  ],
+  "Windows": [
+    "WallpaperChanger.exe __WALL__",
+    "D:\\MyTools\\TakeScreenshot.exe --desktop",
+    "D:\\MyScripts\\CleanDesktop.bat"
+  ],
+  "Mac": [
+    "osascript -e 'tell application \"Finder\" to set desktop picture to POSIX file __WALL__'"
+  ]
+}
+```
