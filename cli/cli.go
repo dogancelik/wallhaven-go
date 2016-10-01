@@ -40,11 +40,19 @@ func saveImage(imageUrl string) string {
 	return savePath
 }
 
-const version string = "v0.1.1"
+const version string = "v0.1.2"
 
 func printVersion() {
 	cmdName := filepath.Base(os.Args[0])
 	fmt.Println(cmdName + " " + version)
+}
+
+func die(code int, msg string, err error) {
+	os.Stderr.WriteString(msg)
+	if err != nil {
+		os.Stderr.WriteString("\nError: " + err.Error())
+	}
+	os.Exit(code)
 }
 
 func main() {
@@ -53,8 +61,8 @@ func main() {
 	purity := flag.String("p", "w", "purity (available: [w][s][n])")
 	res := flag.String("r", "", "resolutions (example: 1920x1080+)")
 	sort := flag.String("s", "random", "sorting (available: random, relevance, date_added, views)")
-	page := flag.Int("page", 1, "page (default: 1)")
-	set := flag.Bool("set", true, "set first result as wallpaper (default: true)")
+	page := flag.Int("page", 1, "search page number")
+	set := flag.Bool("set", false, "set first result as wallpaper (default: true)")
 	all := flag.Bool("all", false, "show all results as URLs (default: false)")
 	version := flag.Bool("v", false, "show version number")
 	flag.Parse()
@@ -81,13 +89,18 @@ func main() {
 	results, errSearch := wallhaven.Search(&opt)
 
 	if errSearch != nil {
-		panic(errSearch)
+		die(1, "Search error", errSearch)
 	}
 
 	if *all == true {
 		for _, v := range results {
 			fmt.Println(v.ImageUrl)
 		}
+		os.Exit(0)
+	}
+
+	if len(results) == 0 {
+		die(2, "No results found", nil)
 	}
 
 	if *set == true {
@@ -96,12 +109,12 @@ func main() {
 		fmt.Println(savePath)
 		settings, errLoad := loadSettings(getSettingsPath())
 		if errLoad != nil {
-			panic(errLoad)
+			die(3, "Loading settings failed", errLoad)
 		}
 
 		errSet := SetWallpaper(savePath, settings)
 		if errSet != nil {
-			panic(errSet)
+			die(4, "Setting image as wallpaper failed", errSet)
 		}
 	}
 }

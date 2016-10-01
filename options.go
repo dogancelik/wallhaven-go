@@ -9,7 +9,7 @@ type Options struct {
 	Page        int
 }
 
-func getDefaultOptions() Options {
+func GetDefaultOptions() Options {
 	opt := Options{}
 	opt.Term = ""
 	opt.Categories.General = true

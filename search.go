@@ -6,7 +6,6 @@ import (
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
-	"github.com/imdario/mergo"
 )
 
 const searchUrl string = "https://alpha.wallhaven.cc/search"
@@ -33,8 +32,6 @@ func createQuery(opt *Options) string {
 }
 
 func Search(opt *Options) ([]Result, error) {
-	mergo.Merge(opt, getDefaultOptions())
-
 	results := []Result{}
 	url := searchUrl + createQuery(opt)
 	doc, err := goquery.NewDocument(url)

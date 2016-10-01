@@ -55,21 +55,22 @@ func main() {
 
 CLI is buggy because Go is buggy [[1]](https://github.com/golang/go/issues/14575), [[2]](https://github.com/golang/go/issues/16131), [[3]](https://github.com/golang/go/issues/17149).
 
-Note: If you are using Windows, you need to install WallpaperChanger from [here (github.com/philhansen/WallpaperChanger)](https://github.com/philhansen/WallpaperChanger/blob/master/WallpaperChanger.exe) and put it beside `wallhaven.exe`
+Note: If you are using Windows, you need to install WallpaperChanger from [here (github.com/philhansen/WallpaperChanger)](https://github.com/philhansen/WallpaperChanger/blob/master/WallpaperChanger.exe)
+and put it beside `wallhaven.exe` *or* in *PATH*.
 
 ```sh
 $ wallhaven
 wallhaven v0.1.1
 Usage of wallhaven:
-  -all           show all results as URLs (default false)
+  -all          show all results as URLs (default false)
   -c string     categories (available: [g][a][p]) (default "gap")
   -p string     purity (available: [w][s][n]) (default "w")
   -page int     page (default: 1) (default 1)
   -r string     resolutions (example: 1920x1080+)
   -s string     sorting (available: random, relevance, date_added, views) (default "random")
-  -set           set first result as wallpaper (default true)
+  -set          set first result as wallpaper (default false)
   -t string     search term
-  -v             show version number
+  -v            show version number
 ```
 
 ### Set first result as wallpaper
