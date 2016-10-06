@@ -1,5 +1,10 @@
 package wallhaven
 
+const SortRandom = "random"
+const SortRelevance = "relevance"
+const SortDateAdded = "date_added"
+const SortViews = "views"
+
 type Options struct {
 	Term        string
 	Categories  Categories
@@ -19,7 +24,7 @@ func GetDefaultOptions() Options {
 	opt.Purity.Sketchy = false
 	opt.Purity.Nsfw = false
 	opt.Resolutions = make([]string, 0)
-	opt.Sorting = "random"
+	opt.Sorting = SortRandom
 	opt.Page = 1
 	return opt
 }

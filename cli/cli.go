@@ -13,12 +13,18 @@ import (
 	".."
 )
 
-func saveImage(imageUrl string) string {
+func saveImage(imageUrl string, saveDirectory string) string {
 	parsedUrl, errParse := url.Parse(imageUrl)
 	if errParse != nil {
 		panic(errParse)
 	}
-	savePath := filepath.Join(os.TempDir(), path.Base(parsedUrl.Path))
+
+	errMkdir := os.MkdirAll(saveDirectory, os.ModePerm)
+	if errMkdir != nil {
+		panic(errMkdir)
+	}
+
+	savePath := filepath.Join(saveDirectory, path.Base(parsedUrl.Path))
 
 	file, errCreate := os.Create(savePath)
 	if errCreate != nil {
@@ -40,7 +46,7 @@ func saveImage(imageUrl string) string {
 	return savePath
 }
 
-const version string = "v0.1.2"
+const version string = "v0.2.0"
 
 func printVersion() {
 	cmdName := filepath.Base(os.Args[0])
@@ -64,6 +70,7 @@ func main() {
 	page := flag.Int("page", 1, "search page number")
 	set := flag.Bool("set", false, "set first result as wallpaper (default: true)")
 	all := flag.Bool("all", false, "show all results as URLs (default: false)")
+	saveDir := flag.String("dir", "$TEMP", "save directory")
 	version := flag.Bool("v", false, "show version number")
 	flag.Parse()
 
@@ -105,8 +112,20 @@ func main() {
 
 	if *set == true {
 		imageUrl := results[0].ImageUrl
-		savePath := saveImage(imageUrl)
-		fmt.Println(savePath)
+
+		if *saveDir == "$TEMP" {
+			*saveDir = os.TempDir()
+		}
+		savePath := saveImage(imageUrl, *saveDir)
+
+		absPath, errAbs := filepath.Abs(savePath)
+		if errAbs != nil {
+			fmt.Fprintln(os.Stderr, "Error when getting absolute path:", errAbs.Error())
+			fmt.Println(savePath)
+		} else {
+			fmt.Println(absPath)
+		}
+
 		settings, errLoad := loadSettings(getSettingsPath())
 		if errLoad != nil {
 			die(3, "Loading settings failed", errLoad)

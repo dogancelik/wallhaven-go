@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.2.0 (2016-10-06)
+
+* CLI: Custom download path with `-dir` (supports non-existing folders)
+* Main: add constants for sorting
+
 ## v0.1.2 (2016-10-01)
 
 * Main: No more default options
